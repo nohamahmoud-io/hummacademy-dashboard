@@ -8,113 +8,68 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
 :root {
-  --sand:     #f5f0e8;
-  --sand2:    #ede7d9;
-  --sand3:    #e4dccb;
-  --white:    #ffffff;
-  --amber:    #e07b1a;
-  --amber-lt: #fdf0e0;
-  --amber-md: #f5c07a;
-  --amber-dk: #b85e0d;
-  --green:    #2d6a4f;
-  --green-lt: #e8f4ed;
-  --red:      #c0392b;
-  --red-lt:   #fdecea;
-  --blue:     #1a4f8a;
-  --blue-lt:  #e8f0fb;
-  --purple:   #6c4fa0;
-  --purple-lt:#f0ebf9;
-  --text:     #1a1612;
-  --text2:    #5c5348;
-  --text3:    #9c8f82;
-  --border:   #ddd6c8;
-  --font:     'Plus Jakarta Sans', sans-serif;
-  --mono:     'DM Mono', monospace;
-  --r:        14px;
-  --r-sm:     8px;
+  --sand:#f5f0e8;--sand2:#ede7d9;--white:#fff;
+  --amber:#e07b1a;--amber-lt:#fdf0e0;--amber-md:#f5c07a;--amber-dk:#b85e0d;
+  --green:#2d6a4f;--green-lt:#e8f4ed;
+  --red:#c0392b;--red-lt:#fdecea;
+  --blue:#1a4f8a;--blue-lt:#e8f0fb;
+  --purple:#6c4fa0;--purple-lt:#f0ebf9;
+  --text:#1a1612;--text2:#5c5348;--text3:#9c8f82;--border:#ddd6c8;
+  --font:'Plus Jakarta Sans',sans-serif;--mono:'DM Mono',monospace;
+  --r:14px;--r-sm:8px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{background:var(--sand);color:var(--text);font-family:var(--font);font-size:14px}
 body{min-height:100vh}
-
-/* TOPBAR */
 .topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 32px;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
 .brand{display:flex;align-items:center;gap:10px}
-.brand-mark{width:34px;height:34px;border-radius:9px;background:var(--amber);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;letter-spacing:-0.5px}
+.brand-mark{width:34px;height:34px;border-radius:9px;background:var(--amber);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff}
 .brand-name{font-weight:700;font-size:15px}
 .brand-sub{font-size:11px;color:var(--text3);font-family:var(--mono)}
 .topbar-right{display:flex;align-items:center;gap:12px}
-.day1-pill{font-family:var(--mono);font-size:11px;color:var(--amber-dk);background:var(--amber-lt);border:1px solid var(--amber-md);padding:5px 12px;border-radius:20px;font-weight:500}
-.snap-pill{font-family:var(--mono);font-size:11px;color:var(--text3);background:var(--sand2);border:1px solid var(--border);padding:5px 12px;border-radius:20px}
-
-/* TABS */
+.pill{font-family:var(--mono);font-size:11px;padding:5px 12px;border-radius:20px}
+.pill-amber{color:var(--amber-dk);background:var(--amber-lt);border:1px solid var(--amber-md)}
+.pill-gray{color:var(--text3);background:var(--sand2);border:1px solid var(--border)}
 .tabs{background:var(--white);border-bottom:1px solid var(--border);padding:0 32px;display:flex}
 .tab{padding:14px 20px;font-size:13px;font-weight:600;color:var(--text3);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;margin-bottom:-1px}
 .tab:hover{color:var(--text)}
 .tab.active{color:var(--amber);border-bottom-color:var(--amber)}
-
-/* VIEWS */
-.view{display:none}
-.view.active{display:block}
-
-/* LAYOUT */
+.view{display:none}.view.active{display:block}
 .main{padding:28px 32px;max-width:1300px;margin:0 auto}
 .sec{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:12px;margin-top:28px;display:flex;align-items:center;gap:10px}
 .sec::after{content:'';flex:1;height:1px;background:var(--border)}
 .sec:first-child{margin-top:0}
-
-/* GRID HELPERS */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
-.g31{display:grid;grid-template-columns:3fr 1fr;gap:12px}
 .g21{display:grid;grid-template-columns:2fr 1fr;gap:12px}
-
-/* KPI CARD */
+.g31{display:grid;grid-template-columns:3fr 1fr;gap:12px}
 .kpi{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:20px 20px 16px;position:relative;overflow:hidden}
 .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.kpi.a::before{background:var(--amber)}
-.kpi.g::before{background:var(--green)}
-.kpi.r::before{background:var(--red)}
-.kpi.b::before{background:var(--blue)}
+.kpi.a::before{background:var(--amber)}.kpi.g::before{background:var(--green)}
+.kpi.r::before{background:var(--red)}.kpi.b::before{background:var(--blue)}
 .kpi.p::before{background:var(--purple)}
 .kpi-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
 .kpi-value{font-size:28px;font-weight:800;line-height:1;color:var(--text)}
 .kpi-value .unit{font-size:14px;font-weight:600;color:var(--text3);margin-left:2px}
 .kpi-sub{font-size:11px;color:var(--text3);margin-top:6px;font-family:var(--mono)}
-.badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-family:var(--mono);font-weight:500;padding:3px 8px;border-radius:20px;margin-top:8px}
-.ba{background:var(--amber-lt);color:var(--amber-dk)}
-.bg{background:var(--green-lt);color:var(--green)}
-.br{background:var(--red-lt);color:var(--red)}
-.bb{background:var(--blue-lt);color:var(--blue)}
-.bp{background:var(--purple-lt);color:var(--purple)}
-.bn{background:var(--sand2);color:var(--text3)}
-
-/* CHART CARD */
+.badge{display:inline-flex;align-items:center;font-size:10px;font-family:var(--mono);font-weight:500;padding:3px 8px;border-radius:20px;margin-top:8px}
+.ba{background:var(--amber-lt);color:var(--amber-dk)}.bg{background:var(--green-lt);color:var(--green)}
+.br{background:var(--red-lt);color:var(--red)}.bb{background:var(--blue-lt);color:var(--blue)}
+.bp{background:var(--purple-lt);color:var(--purple)}.bn{background:var(--sand2);color:var(--text3)}
 .card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:20px}
 .card-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px}
 .card-sub{font-size:11px;color:var(--text3);font-family:var(--mono);margin-bottom:14px}
 .chart-wrap{position:relative}
-
-/* LEGEND */
-.legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:12px}
-.li{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)}
-.ld{width:8px;height:8px;border-radius:2px;flex-shrink:0}
-
-/* REVENUE SPLIT CARD */
 .rev-split{display:flex;flex-direction:column;gap:10px;margin-top:4px}
 .rev-row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:var(--r-sm);border:1px solid var(--border)}
-.rev-row-label{font-size:12px;font-weight:600;color:var(--text)}
-.rev-row-sub{font-size:10px;color:var(--text3);font-family:var(--mono);margin-top:2px}
-.rev-row-amount{text-align:right}
-.rev-row-egp{font-size:18px;font-weight:800;font-family:var(--mono)}
-.rev-row-count{font-size:10px;color:var(--text3);font-family:var(--mono);margin-top:2px}
+.rev-name{font-size:12px;font-weight:600;color:var(--text)}
+.rev-desc{font-size:10px;color:var(--text3);font-family:var(--mono);margin-top:2px}
+.rev-egp{font-size:18px;font-weight:800;font-family:var(--mono)}
+.rev-cnt{font-size:10px;color:var(--text3);font-family:var(--mono);margin-top:2px;text-align:right}
 .rev-total{border-top:1px solid var(--border);padding-top:12px;display:flex;justify-content:space-between;align-items:center;margin-top:4px}
-.rev-total-label{font-size:12px;font-weight:700;color:var(--text)}
+.rev-total-label{font-size:12px;font-weight:700}
 .rev-total-egp{font-size:22px;font-weight:800;font-family:var(--mono);color:var(--amber)}
-
-/* FUNNEL */
 .funnel-step{display:flex;align-items:center;gap:14px;margin-bottom:10px}
 .funnel-lbl{width:155px;flex-shrink:0}
 .funnel-name{font-size:12px;font-weight:600;color:var(--text)}
@@ -125,41 +80,22 @@ body{min-height:100vh}
 .funnel-n{font-size:10px;font-family:var(--mono);color:var(--text2)}
 .funnel-d{font-size:10px;font-family:var(--mono);color:var(--red)}
 .funnel-arrow{margin-left:169px;color:var(--border);font-size:18px;line-height:1;margin-bottom:2px}
-
-/* GROWTH TABLE */
 .gtable{width:100%;border-collapse:collapse;font-size:13px}
 .gtable th{text-align:left;padding:9px 14px;font-family:var(--mono);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);border-bottom:1px solid var(--border);background:var(--sand)}
 .gtable td{padding:12px 14px;border-bottom:1px solid var(--sand2);color:var(--text)}
 .gtable tr.total td{font-weight:700;background:var(--amber-lt);border-bottom:none}
 .gtable tr.note td{font-size:11px;color:var(--text3);font-family:var(--mono);background:var(--sand);border-bottom:none;font-weight:400!important}
-.nm{font-family:var(--mono);font-weight:500}
-.npos{color:var(--green)}
-.nneg{color:var(--red)}
-
-/* INSIGHT */
+.nm{font-family:var(--mono);font-weight:500}.npos{color:var(--green)}.nneg{color:var(--red)}
 .insight{background:var(--amber-lt);border:1px solid var(--amber-md);border-radius:var(--r);padding:16px 20px;display:flex;gap:14px;align-items:flex-start;margin-top:20px}
 .insight-title{font-size:13px;font-weight:700;color:var(--amber-dk);margin-bottom:5px}
 .insight-body{font-size:12px;color:var(--text2);line-height:1.7}
 .insight-body strong{color:var(--text);font-weight:600}
-
-/* GAUGE CARD */
 .gauge-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:20px;text-align:center}
-.gauge-val{font-size:32px;font-weight:800;line-height:1;margin-top:4px}
-.gauge-lbl{font-size:11px;color:var(--text3);font-family:var(--mono);margin-top:4px}
-
-/* FOOTER */
 .footer{text-align:center;padding:20px 32px;font-family:var(--mono);font-size:10px;color:var(--text3);border-top:1px solid var(--border);margin-top:32px;background:var(--white)}
-
-@media(max-width:900px){
-  .g2,.g3,.g4,.g5,.g31,.g21{grid-template-columns:1fr}
-  .main{padding:16px}
-  .topbar,.tabs{padding:0 16px}
-}
+@media(max-width:900px){.g2,.g3,.g4,.g21,.g31{grid-template-columns:1fr}.main{padding:16px}.topbar,.tabs{padding:0 16px}}
 </style>
 </head>
 <body>
-
-<!-- TOPBAR -->
 <div class="topbar">
   <div class="brand">
     <div class="brand-mark">HA</div>
@@ -169,19 +105,17 @@ body{min-height:100vh}
     </div>
   </div>
   <div class="topbar-right">
-    <span class="day1-pill">Day 1 = 29 Apr 2026</span>
-    <span class="snap-pill">Snapshot · 1 May 2026</span>
+    <span class="pill pill-amber">Day 1 = 29 Apr 2026</span>
+    <span class="pill pill-gray">Updated: 3 May 2026 08:21 UTC</span>
   </div>
 </div>
 
-<!-- TABS -->
 <div class="tabs">
   <button class="tab active" onclick="switchTab('exec',this)">Executive Overview</button>
   <button class="tab" onclick="switchTab('funnel',this)">Acquisition & Funnel</button>
 </div>
 
-
-<!-- ══════════════════════ TAB 1: EXECUTIVE ══════════════════════ -->
+<!-- ══ TAB 1: EXECUTIVE ══ -->
 <div class="view active" id="view-exec">
 <div class="main">
 
@@ -190,68 +124,49 @@ body{min-height:100vh}
     <div class="kpi a">
       <div class="kpi-label">Gross Revenue</div>
       <div class="kpi-value">101<span class="unit">EGP</span></div>
-      <div class="kpi-sub">3 payments · post Apr 29</div>
-      <span class="badge ba">Real revenue only</span>
+      <div class="kpi-sub">3 payments total</div>
+      <span class="badge ba">Since Apr 29</span>
     </div>
     <div class="kpi a">
       <div class="kpi-label">Real Revenue</div>
-      <div class="kpi-value">99<span class="unit">EGP</span></div>
-      <div class="kpi-sub">excl. 2 EGP auth holds</div>
-      <span class="badge ba">1 monthly plan</span>
+      <div class="kpi-value">101<span class="unit">EGP</span></div>
+      <div class="kpi-sub">excl. 0 EGP auth holds</div>
+      <span class="badge ba">Actual subscription $</span>
     </div>
-    <div class="kpi p">
-      <div class="kpi-label">Auth Hold Revenue</div>
-      <div class="kpi-value">2<span class="unit">EGP</span></div>
-      <div class="kpi-sub">2 × 1 EGP card activations</div>
-      <span class="badge bp">Refunded to users</span>
+    <div class="kpi a">
+      <div class="kpi-label">MRR</div>
+      <div class="kpi-value">99<span class="unit">EGP</span></div>
+      <div class="kpi-sub">monthly plan revenue</div>
+      <span class="badge ba">ARR = 1,190 EGP</span>
     </div>
     <div class="kpi b">
-      <div class="kpi-label">MRR (projected)</div>
-      <div class="kpi-value">99<span class="unit">EGP</span></div>
-      <div class="kpi-sub">based on 1 monthly subscriber</div>
-      <span class="badge bb">ARR = 1,188 EGP</span>
+      <div class="kpi-label">ARPU</div>
+      <div class="kpi-value">50<span class="unit">EGP</span></div>
+      <div class="kpi-sub">avg revenue per subscriber</div>
+      <span class="badge bb">Payback: ~1.0 mo</span>
     </div>
   </div>
 
-  <!-- Revenue split by plan -->
   <div class="sec">Revenue split by plan</div>
   <div class="g21">
     <div class="card">
       <div class="card-title">Revenue breakdown by plan type</div>
-      <div class="card-sub">all successful payments · Day 1 onwards · 29 Apr 2026</div>
+      <div class="card-sub">all successful payments · Day 1 onwards</div>
       <div class="rev-split">
         <div class="rev-row" style="background:var(--amber-lt);border-color:var(--amber-md)">
-          <div>
-            <div class="rev-row-label">Monthly plan</div>
-            <div class="rev-row-sub">1 successful payment · real subscription revenue</div>
-          </div>
-          <div class="rev-row-amount">
-            <div class="rev-row-egp" style="color:var(--amber)">99 EGP</div>
-            <div class="rev-row-count">1 payment</div>
-          </div>
+          <div><div class="rev-name">Monthly plan</div><div class="rev-desc">subscription payments</div></div>
+          <div><div class="rev-egp" style="color:var(--amber)">99 EGP</div></div>
+        </div>
+        <div class="rev-row" style="background:var(--green-lt);border-color:#b7d9c5">
+          <div><div class="rev-name">Annual plan — subscription</div><div class="rev-desc">charged at signup</div></div>
+          <div><div class="rev-egp" style="color:var(--green)">2 EGP</div></div>
         </div>
         <div class="rev-row" style="background:var(--purple-lt);border-color:#d4c5eb">
-          <div>
-            <div class="rev-row-label">Annual plan — card activation holds</div>
-            <div class="rev-row-sub">2 × 1 EGP authorization holds · refunded immediately</div>
-          </div>
-          <div class="rev-row-amount">
-            <div class="rev-row-egp" style="color:var(--purple)">2 EGP</div>
-            <div class="rev-row-count">2 payments</div>
-          </div>
-        </div>
-        <div class="rev-row" style="background:var(--sand2);border-color:var(--border)">
-          <div>
-            <div class="rev-row-label">Annual plan — subscription revenue</div>
-            <div class="rev-row-sub">billing cycle not yet completed</div>
-          </div>
-          <div class="rev-row-amount">
-            <div class="rev-row-egp" style="color:var(--text3)">— EGP</div>
-            <div class="rev-row-count">pending</div>
-          </div>
+          <div><div class="rev-name">Card activation holds</div><div class="rev-desc">1 EGP each · refunded immediately</div></div>
+          <div><div class="rev-egp" style="color:var(--purple)">0 EGP</div></div>
         </div>
         <div class="rev-total">
-          <div class="rev-total-label">Gross total (Day 1 onwards)</div>
+          <div class="rev-total-label">Gross total</div>
           <div class="rev-total-egp">101 EGP</div>
         </div>
       </div>
@@ -260,165 +175,87 @@ body{min-height:100vh}
       <div class="card-title">Revenue mix</div>
       <div class="card-sub">by plan type</div>
       <div class="chart-wrap" style="height:160px;margin-top:8px">
-        <canvas id="cRevMix" role="img" aria-label="Donut chart: 99 EGP monthly, 2 EGP auth holds"></canvas>
+        <canvas id="cRevMix" role="img" aria-label="Revenue split donut chart"></canvas>
       </div>
       <div style="display:flex;flex-direction:column;gap:7px;margin-top:14px">
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:var(--amber-lt);border-radius:var(--r-sm)">
-          <span style="font-size:11px;font-weight:600;color:var(--text)">Monthly</span>
-          <span style="font-family:var(--mono);font-size:12px;font-weight:700;color:var(--amber)">99 EGP · 98%</span>
+        <div style="display:flex;justify-content:space-between;padding:7px 10px;background:var(--amber-lt);border-radius:var(--r-sm)">
+          <span style="font-size:11px;font-weight:600">Monthly</span>
+          <span style="font-family:var(--mono);font-size:12px;font-weight:700;color:var(--amber)">99 EGP</span>
         </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:var(--purple-lt);border-radius:var(--r-sm)">
-          <span style="font-size:11px;font-weight:600;color:var(--text)">Auth holds</span>
-          <span style="font-family:var(--mono);font-size:12px;font-weight:700;color:var(--purple)">2 EGP · 2%</span>
+        <div style="display:flex;justify-content:space-between;padding:7px 10px;background:var(--green-lt);border-radius:var(--r-sm)">
+          <span style="font-size:11px;font-weight:600">Annual</span>
+          <span style="font-family:var(--mono);font-size:12px;font-weight:700;color:var(--green)">2 EGP</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:7px 10px;background:var(--purple-lt);border-radius:var(--r-sm)">
+          <span style="font-size:11px;font-weight:600">Auth holds</span>
+          <span style="font-family:var(--mono);font-size:12px;font-weight:700;color:var(--purple)">0 EGP</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Subscribers -->
   <div class="sec">Subscribers · Day 1 onwards</div>
   <div class="g4">
     <div class="kpi g">
       <div class="kpi-label">Active subscribers</div>
       <div class="kpi-value">2</div>
       <div class="kpi-sub">1 monthly · 1 annual</div>
-      <span class="badge bg">Post Apr 29</span>
     </div>
     <div class="kpi a">
       <div class="kpi-label">New subscribers</div>
       <div class="kpi-value">2</div>
       <div class="kpi-sub">since Day 1</div>
-      <span class="badge ba">Apr 29–30</span>
     </div>
     <div class="kpi g">
       <div class="kpi-label">Cancellations</div>
       <div class="kpi-value">0</div>
       <div class="kpi-sub">since Day 1</div>
-      <span class="badge bg">0% churn</span>
+      <span class="badge bg">0% churn rate</span>
     </div>
     <div class="kpi b">
-      <div class="kpi-label">ARPU</div>
-      <div class="kpi-value">~99<span class="unit">EGP</span></div>
-      <div class="kpi-sub">1 billing event so far</div>
-      <span class="badge bb">Early signal only</span>
+      <div class="kpi-label">Conv. rate</div>
+      <div class="kpi-value">0.02<span class="unit">%</span></div>
+      <div class="kpi-sub">registered → paid</div>
     </div>
   </div>
 
-  <!-- Plan mix + growth accounting -->
-  <div class="sec">Plan mix & growth accounting</div>
-  <div class="g21">
-    <div class="card">
-      <div class="card-title">Growth accounting · Day 1 onwards</div>
-      <div class="card-sub">New − Churned = Net change · April 29–30 2026</div>
-      <table class="gtable" style="margin-top:8px">
-        <thead>
-          <tr>
-            <th>Period</th>
-            <th>New subs</th>
-            <th>Churned</th>
-            <th>Net change</th>
-            <th>Total active</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="nm">Apr 29–30, 2026</span></td>
-            <td><span class="nm npos">+2</span></td>
-            <td><span class="nm">0</span></td>
-            <td><span class="nm npos">+2</span></td>
-            <td><span class="nm">2</span></td>
-          </tr>
-          <tr>
-            <td><span class="nm">May 2026 (live)</span></td>
-            <td><span class="nm" style="color:var(--text3)">—</span></td>
-            <td><span class="nm" style="color:var(--text3)">—</span></td>
-            <td><span class="nm" style="color:var(--text3)">—</span></td>
-            <td><span class="nm" style="color:var(--text3)">—</span></td>
-          </tr>
-          <tr class="total">
-            <td>Day 1 total</td>
-            <td><span class="nm npos">+2</span></td>
-            <td><span class="nm">0</span></td>
-            <td><span class="nm npos">+2</span></td>
-            <td><span class="nm">2</span></td>
-          </tr>
-          <tr class="note">
-            <td colspan="5">All pre-Apr 29 data excluded · Day 1 = 29 Apr 2026 · 11 pre-launch cancellations not counted</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="card">
-      <div class="card-title">Active plan split</div>
-      <div class="card-sub">2 active subscribers</div>
-      <div class="chart-wrap" style="height:140px;margin-top:12px">
-        <canvas id="cPlanMix" role="img" aria-label="Donut: 1 monthly, 1 annual"></canvas>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:7px;margin-top:14px">
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:var(--amber-lt);border-radius:var(--r-sm)">
-          <span style="font-size:11px;font-weight:600">Monthly</span>
-          <span style="font-family:var(--mono);font-size:12px;font-weight:700;color:var(--amber)">1 · 50%</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:var(--green-lt);border-radius:var(--r-sm)">
-          <span style="font-size:11px;font-weight:600">Annual</span>
-          <span style="font-family:var(--mono);font-size:12px;font-weight:700;color:var(--green)">1 · 50%</span>
-        </div>
-      </div>
-    </div>
+  <div class="sec">Growth accounting</div>
+  <div class="card">
+    <div class="card-title">Net subscriber change · New − Churned = Net</div>
+    <div class="card-sub" style="margin-bottom:16px">Since Day 1 · April 29 2026 onwards</div>
+    <table class="gtable">
+      <thead><tr><th>Period</th><th>New subs</th><th>Churned</th><th>Net change</th><th>Total active</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="nm">Apr 29 – today</span></td>
+          <td><span class="nm npos">+2</span></td>
+          <td><span class="nm ">0</span></td>
+          <td><span class="nm npos">+2</span></td>
+          <td><span class="nm">2</span></td>
+        </tr>
+        <tr class="total"><td>Running total</td><td><span class="nm npos">+2</span></td><td><span class="nm">0</span></td><td><span class="nm npos">+2</span></td><td><span class="nm">2</span></td></tr>
+        <tr class="note"><td colspan="5">All pre-Apr 29 data excluded · Day 1 = 29 Apr 2026</td></tr>
+      </tbody>
+    </table>
   </div>
 
-  <!-- CAC & ROI -->
-  <div class="sec">Unit economics · Day 1</div>
-  <div class="g4">
-    <div class="kpi a">
-      <div class="kpi-label">CAC (set)</div>
-      <div class="kpi-value">50<span class="unit">EGP</span></div>
-      <div class="kpi-sub">cost per acquired user</div>
-    </div>
-    <div class="kpi b">
-      <div class="kpi-label">Payback period</div>
-      <div class="kpi-value">~1<span class="unit">mo</span></div>
-      <div class="kpi-sub">CAC 50 ÷ ARPU 99 EGP</div>
-      <span class="badge bb">Healthy signal</span>
-    </div>
-    <div class="kpi g">
-      <div class="kpi-label">LTV estimate</div>
-      <div class="kpi-value">—<span class="unit">EGP</span></div>
-      <div class="kpi-sub">needs 3+ months of data</div>
-      <span class="badge bn">Pending</span>
-    </div>
-    <div class="kpi g">
-      <div class="kpi-label">LTV : CAC ratio</div>
-      <div class="kpi-value">—</div>
-      <div class="kpi-sub">target > 3× · pending LTV data</div>
-      <span class="badge bn">Pending</span>
-    </div>
-  </div>
-
-  <div class="insight">
-    <div style="font-size:20px;flex-shrink:0">💡</div>
-    <div>
-      <div class="insight-title">Day 1 executive signal: strong unit economics, thin volume</div>
-      <div class="insight-body">
-        <strong>Good news:</strong> Payback period is ~1 month (50 EGP CAC vs 99 EGP monthly price) — that's healthy.
-        Zero cancellations since Day 1. The 11 pre-launch cancellations are excluded as testing data.<br><br>
-        <strong>The challenge:</strong> Only 2 paying subscribers from a base of 10,886 registered users.
-        The annual subscriber has been activated (1 EGP auth hold captured) but subscription billing hasn't been charged yet —
-        that revenue will appear in the next billing cycle.<br><br>
-        <strong>Focus now:</strong> Converting the warm base of enrolled users into paid plans. Even 0.1% conversion = 10 new subscribers.
-      </div>
+  <div class="sec">Daily revenue since Day 1</div>
+  <div class="card">
+    <div class="card-title">Revenue per day</div>
+    <div class="card-sub">EGP collected · Day 1 onwards</div>
+    <div class="chart-wrap" style="height:180px;margin-top:8px">
+      <canvas id="cRevDaily" role="img" aria-label="Daily revenue bar chart"></canvas>
     </div>
   </div>
 
 </div>
 </div>
 
-
-<!-- ══════════════════════ TAB 2: FUNNEL ══════════════════════ -->
+<!-- ══ TAB 2: FUNNEL ══ -->
 <div class="view" id="view-funnel">
 <div class="main">
 
-  <div class="sec">Acquisition · all-time user base</div>
+  <div class="sec">Acquisition snapshot · all-time</div>
   <div class="g4">
     <div class="kpi a">
       <div class="kpi-label">Total registered</div>
@@ -433,156 +270,72 @@ body{min-height:100vh}
     </div>
     <div class="kpi b">
       <div class="kpi-label">Completed onboarding</div>
-      <div class="kpi-value">46</div>
+      <div class="kpi-value">50</div>
       <div class="kpi-sub">skipping allowed by design</div>
-      <span class="badge bn">0.4% rate</span>
+      <span class="badge bn">0.5% rate</span>
     </div>
     <div class="kpi g">
       <div class="kpi-label">Paid (Day 1+)</div>
       <div class="kpi-value">2</div>
-      <div class="kpi-sub">active paying subscribers</div>
+      <div class="kpi-sub">active paying today</div>
       <span class="badge bg">0.02% conversion</span>
     </div>
   </div>
 
-  <!-- Funnel viz -->
   <div class="sec">Conversion funnel</div>
   <div class="card">
     <div class="card-title">Account created → Paid subscriber</div>
     <div class="card-sub">all-time registered base · Day 1 paying cohort</div>
     <div style="margin-top:20px">
-
       <div class="funnel-step">
-        <div class="funnel-lbl">
-          <div class="funnel-name">Account created</div>
-          <div class="funnel-desc">all registrations</div>
-        </div>
+        <div class="funnel-lbl"><div class="funnel-name">Account created</div><div class="funnel-desc">all registrations</div></div>
         <div style="flex:1">
-          <div class="funnel-track">
-            <div class="funnel-fill" style="width:100%;background:var(--amber);color:#fff">10,886</div>
-          </div>
-          <div class="funnel-meta">
-            <span class="funnel-n">10,886 users · 100%</span>
-            <span class="funnel-d">Base</span>
-          </div>
+          <div class="funnel-track"><div class="funnel-fill" style="width:100%;background:var(--amber);color:#fff">10,886</div></div>
+          <div class="funnel-meta"><span class="funnel-n">10,886 users · 100%</span><span class="funnel-d">Base</span></div>
         </div>
       </div>
-
       <div class="funnel-arrow">↓</div>
-
       <div class="funnel-step">
-        <div class="funnel-lbl">
-          <div class="funnel-name">Ever enrolled</div>
-          <div class="funnel-desc">accessed a course</div>
-        </div>
+        <div class="funnel-lbl"><div class="funnel-name">Ever enrolled</div><div class="funnel-desc">accessed a course</div></div>
         <div style="flex:1">
-          <div class="funnel-track">
-            <div class="funnel-fill" style="width:99.7%;background:var(--green);color:#fff">10,854</div>
-          </div>
-          <div class="funnel-meta">
-            <span class="funnel-n">10,854 users · 99.7%</span>
-            <span class="funnel-d">−32 never enrolled</span>
-          </div>
+          <div class="funnel-track"><div class="funnel-fill" style="width:99.7%;background:var(--green);color:#fff">10,854</div></div>
+          <div class="funnel-meta"><span class="funnel-n">10,854 · 99.7%</span><span class="funnel-d">−32 never enrolled</span></div>
         </div>
       </div>
-
       <div class="funnel-arrow">↓</div>
-
       <div class="funnel-step">
-        <div class="funnel-lbl">
-          <div class="funnel-name">Completed onboarding</div>
-          <div class="funnel-desc">by design: skippable</div>
-        </div>
+        <div class="funnel-lbl"><div class="funnel-name">Completed onboarding</div><div class="funnel-desc">skipping allowed</div></div>
         <div style="flex:1">
-          <div class="funnel-track">
-            <div class="funnel-fill" style="width:0.42%;min-width:58px;background:var(--blue);color:#fff">46</div>
-          </div>
-          <div class="funnel-meta">
-            <span class="funnel-n">46 users · 0.4%</span>
-            <span style="font-size:10px;font-family:var(--mono);color:var(--text3)">skip by design</span>
-          </div>
+          <div class="funnel-track"><div class="funnel-fill" style="width:max(0.5%,0.46%);min-width:58px;background:var(--blue);color:#fff">50</div></div>
+          <div class="funnel-meta"><span class="funnel-n">50 · 0.5%</span><span style="font-size:10px;font-family:var(--mono);color:var(--text3)">skip by design</span></div>
         </div>
       </div>
-
       <div class="funnel-arrow">↓</div>
-
       <div class="funnel-step">
-        <div class="funnel-lbl">
-          <div class="funnel-name">Paid subscriber</div>
-          <div class="funnel-desc">Day 1 onwards only</div>
-        </div>
+        <div class="funnel-lbl"><div class="funnel-name">Paid subscriber</div><div class="funnel-desc">Day 1 onwards only</div></div>
         <div style="flex:1">
-          <div class="funnel-track">
-            <div class="funnel-fill" style="width:0.02%;min-width:44px;background:var(--red);color:#fff">2</div>
-          </div>
-          <div class="funnel-meta">
-            <span class="funnel-n">2 users · 0.02% of registered</span>
-            <span class="funnel-d">−10,884 not yet paid</span>
-          </div>
+          <div class="funnel-track"><div class="funnel-fill" style="width:max(0.3%,0.02%);min-width:44px;background:var(--red);color:#fff">2</div></div>
+          <div class="funnel-meta"><span class="funnel-n">2 · 0.02% of registered</span><span class="funnel-d">−10,884 not yet paid</span></div>
         </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Gauges + daily signups -->
-  <div class="sec">Conversion rates & daily signups</div>
-  <div class="g21">
-    <div class="card">
-      <div class="card-title">Daily signups since Day 1</div>
-      <div class="card-sub">Apr 29 spike = bulk import of migrated users from old platform</div>
-      <div class="chart-wrap" style="height:200px;margin-top:8px">
-        <canvas id="cSignups" role="img" aria-label="Bar chart: Apr 29 9958, Apr 30 876 signups"></canvas>
-      </div>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:12px">
-      <div class="gauge-card">
-        <div class="card-title" style="font-size:12px">Lead-to-Paid</div>
-        <div style="font-size:10px;color:var(--text3);font-family:var(--mono);margin-bottom:8px">registered → paying</div>
-        <div class="chart-wrap" style="height:90px">
-          <canvas id="cG1" role="img" aria-label="Gauge 0.02%"></canvas>
-        </div>
-        <div class="gauge-val" style="color:var(--red)">0.02%</div>
-        <div class="gauge-lbl">2 paid / 10,886 registered</div>
-      </div>
-      <div class="gauge-card">
-        <div class="card-title" style="font-size:12px">Enrolled-to-Paid</div>
-        <div style="font-size:10px;color:var(--text3);font-family:var(--mono);margin-bottom:8px">enrolled → paying</div>
-        <div class="chart-wrap" style="height:90px">
-          <canvas id="cG2" role="img" aria-label="Gauge 0.02%"></canvas>
-        </div>
-        <div class="gauge-val" style="color:var(--amber)">0.02%</div>
-        <div class="gauge-lbl">2 paid / 10,854 enrolled</div>
       </div>
     </div>
   </div>
 
-  <!-- ROI -->
-  <div class="sec">ROI & payback · Day 1</div>
+  <div class="sec">Daily signups since Day 1</div>
+  <div class="card">
+    <div class="card-title">New registrations per day</div>
+    <div class="card-sub">Apr 29 spike = bulk import from old platform</div>
+    <div class="chart-wrap" style="height:200px;margin-top:8px">
+      <canvas id="cSignups" role="img" aria-label="Daily signups bar chart"></canvas>
+    </div>
+  </div>
+
+  <div class="sec">ROI & payback</div>
   <div class="g4">
-    <div class="kpi a">
-      <div class="kpi-label">CAC (set)</div>
-      <div class="kpi-value">50<span class="unit">EGP</span></div>
-      <div class="kpi-sub">cost per acquired user</div>
-    </div>
-    <div class="kpi b">
-      <div class="kpi-label">Payback period</div>
-      <div class="kpi-value">~1<span class="unit">mo</span></div>
-      <div class="kpi-sub">50 EGP CAC ÷ 99 EGP ARPU</div>
-      <span class="badge bb">Strong signal</span>
-    </div>
-    <div class="kpi a">
-      <div class="kpi-label">Total acquisition spend</div>
-      <div class="kpi-value">544k<span class="unit">EGP</span></div>
-      <div class="kpi-sub">10,886 users × 50 EGP</div>
-      <span class="badge bn">Theoretical</span>
-    </div>
-    <div class="kpi g">
-      <div class="kpi-label">Revenue vs spend</div>
-      <div class="kpi-value">0.02<span class="unit">%</span></div>
-      <div class="kpi-sub">101 EGP earned / 544k spent</div>
-      <span class="badge br">Day 1 only</span>
-    </div>
+    <div class="kpi a"><div class="kpi-label">CAC</div><div class="kpi-value">50<span class="unit">EGP</span></div><div class="kpi-sub">cost per acquired user</div></div>
+    <div class="kpi b"><div class="kpi-label">Payback period</div><div class="kpi-value">~1.0 mo</div><div class="kpi-sub">CAC ÷ ARPU</div></div>
+    <div class="kpi a"><div class="kpi-label">Total acq. spend</div><div class="kpi-value">544k<span class="unit">EGP</span></div><div class="kpi-sub">10,886 users × 50 EGP</div></div>
+    <div class="kpi g"><div class="kpi-label">Revenue vs spend</div><div class="kpi-value">0.02<span class="unit">%</span></div><div class="kpi-sub">101 EGP earned</div></div>
   </div>
 
   <div class="insight">
@@ -590,12 +343,10 @@ body{min-height:100vh}
     <div>
       <div class="insight-title">The opportunity: 10,854 warm enrolled users who haven't paid yet</div>
       <div class="insight-body">
-        You migrated a large user base from the old platform — <strong>10,854 people already use your content for free</strong>.
-        These are not cold leads. They've already experienced HUMM Academy.<br><br>
-        At your current <strong>50 EGP CAC and 99 EGP monthly price</strong>, payback is under 1 month — the unit economics work.
-        The gap is conversion, not acquisition.<br><br>
-        <strong>Moving from 0.02% → 1% conversion</strong> = 108 paying subscribers and ~10,692 EGP MRR.
-        Survey why enrolled users haven't subscribed — price sensitivity, content gaps, or simply no paywall pressure yet.
+        You have <strong>10,854 people who enrolled in courses but haven't subscribed</strong>.
+        At your <strong>50 EGP CAC and 50 EGP ARPU</strong>, payback is ~1.0 mo.
+        Even moving from <strong>0.02% → 1% conversion</strong> = 109 paying subscribers
+        and ~5,389 EGP MRR.
       </div>
     </div>
   </div>
@@ -603,74 +354,17 @@ body{min-height:100vh}
 </div>
 </div>
 
-<div class="footer">
-  HUMM Academy · Internal use only · Day 1 = 29 Apr 2026 · Snapshot: 1 May 2026 · Refresh by re-running SQL queries
-</div>
+<div class="footer">HUMM Academy · Internal · Day 1 = 29 Apr 2026 · Auto-refreshed hourly · Last update: 3 May 2026 08:21 UTC</div>
 
 <script>
-function switchTab(id, el) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.getElementById('view-' + id).classList.add('active');
-  el.classList.add('active');
-}
-
-const mono = "'DM Mono', monospace";
-const amber = '#e07b1a', green = '#2d6a4f', red = '#c0392b';
-const blue = '#1a4f8a', purple = '#6c4fa0';
-const sand2 = '#ede7d9', text3 = '#9c8f82', gridC = '#ede7d9';
-const base = { responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } } };
-const ticks = { font:{ family:mono, size:10 }, color:text3 };
-const scales = {
-  x:{ grid:{ display:false }, ticks, border:{ display:false } },
-  y:{ grid:{ color:gridC }, ticks, border:{ display:false } }
-};
-
-// Revenue mix donut
-new Chart(document.getElementById('cRevMix'), {
-  type:'doughnut',
-  data:{ labels:['Monthly','Auth holds'], datasets:[{ data:[99,2], backgroundColor:[amber,purple], borderWidth:0, hoverOffset:5 }] },
-  options:{ ...base, cutout:'70%' }
-});
-
-// Plan mix donut
-new Chart(document.getElementById('cPlanMix'), {
-  type:'doughnut',
-  data:{ labels:['Monthly','Annual'], datasets:[{ data:[1,1], backgroundColor:[amber,green], borderWidth:0, hoverOffset:5 }] },
-  options:{ ...base, cutout:'70%' }
-});
-
-// Signups bar
-new Chart(document.getElementById('cSignups'), {
-  type:'bar',
-  data:{
-    labels:['29 Apr','30 Apr'],
-    datasets:[{
-      data:[9958,876],
-      backgroundColor:['rgba(224,123,26,0.85)','rgba(224,123,26,0.4)'],
-      borderRadius:5, borderSkipped:false,
-    }]
-  },
-  options:{
-    ...base,
-    scales:{
-      x:{ ...scales.x },
-      y:{ ...scales.y, ticks:{ ...ticks, callback: v => v>=1000 ? (v/1000).toFixed(1)+'k' : v } }
-    },
-    plugins:{ ...base.plugins, tooltip:{ callbacks:{ label: ctx => ctx.parsed.y.toLocaleString() + ' signups' } } }
-  }
-});
-
-// Gauges
-function gauge(id, pct, color) {
-  new Chart(document.getElementById(id), {
-    type:'doughnut',
-    data:{ datasets:[{ data:[pct, 100-pct], backgroundColor:[color, sand2], borderWidth:0, circumference:180, rotation:270 }] },
-    options:{ ...base, cutout:'75%' }
-  });
-}
-gauge('cG1', 0.02, red);
-gauge('cG2', 0.02, amber);
+function switchTab(id,el){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById('view-'+id).classList.add('active');el.classList.add('active');}
+const mono="'DM Mono',monospace",amber='#e07b1a',green='#2d6a4f',red='#c0392b',blue='#1a4f8a',purple='#6c4fa0',sand2='#ede7d9',text3='#9c8f82';
+const base={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}};
+const ticks={font:{family:mono,size:10},color:text3};
+const sc={x:{grid:{display:false},ticks,border:{display:false}},y:{grid:{color:'#ede7d9'},ticks,border:{display:false}}};
+new Chart(document.getElementById('cRevMix'),{type:'doughnut',data:{labels:['Monthly','Annual','Auth holds'],datasets:[{data:[99,2,0],backgroundColor:[amber,green,purple],borderWidth:0,hoverOffset:5}]},options:{...base,cutout:'70%'}});
+new Chart(document.getElementById('cRevDaily'),{type:'bar',data:{labels:['2026-04-30'],datasets:[{data:[101],backgroundColor:'rgba(224,123,26,0.75)',borderRadius:4,borderSkipped:false}]},options:{...base,scales:{...sc,y:{...sc.y,ticks:{...ticks,callback:v=>v>=1000?(v/1000).toFixed(1)+'k':v}}}}});
+new Chart(document.getElementById('cSignups'),{type:'bar',data:{labels:['2026-04-29', '2026-04-30'],datasets:[{data:[9958, 876],backgroundColor:(ctx)=>ctx.dataIndex===0?'rgba(224,123,26,0.9)':'rgba(224,123,26,0.4)',borderRadius:4,borderSkipped:false}]},options:{...base,scales:{...sc,y:{...sc.y,ticks:{...ticks,callback:v=>v>=1000?(v/1000).toFixed(1)+'k':v}}}}});
 </script>
 </body>
 </html>
